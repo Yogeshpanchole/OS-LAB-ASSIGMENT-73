@@ -1,0 +1,54 @@
+# include <iostream>
+using namespace std;
+
+
+int main()
+{
+  
+  int blockSize[10], processSize[10], blockNo, processNo, flags[10], allocation[10], i, j;
+
+  for(i = 0; i < 10; i++)
+    {
+      flags[i] = 0;
+      allocation[i] = -1;
+    }
+
+  // Taking Inputs of Number of Blocks 
+  cout << "Enter no. of blocks: ";
+  cin >> blockNo;
+
+  // Taking Inputs of Each Block
+  cout << "\nEnter size of each block: ";
+  for(i = 0; i < blockNo; i++)
+    cin >> blockSize[i];
+
+  // Taking Inputs of Number of Processes
+  cout << "\nEnter no. of processes: ";
+  cin >> processNo;
+
+  // Taking Inputs of Each Process Size
+  cout << "\nEnter size of each process: ";
+  for(i = 0; i < processNo; i++)
+    cin >> processSize[i];
+  for(i = 0; i < processNo; i++)
+    for(j = 0; j < blockNo; j++)
+      if(flags[j] == 0 && blockSize[j] >= processSize[i])
+      {
+        allocation[j] = i;
+        flags[j] = 1;
+        break;
+      }
+
+  // Displaying Output of Memory Management 
+  cout << "\nBlock no.\tSize\t\tProcess No.\t\tSize";
+  for(i = 0; i < blockNo; i++)
+    {
+      // if block is not allocated
+      cout << "\n" << i+1 << "\t\t\t" << blockSize[i] << "\t\t\t";
+      if(flags[i] == 1) // if allocated
+        cout << allocation[i] + 1 << "\t\t\t\t" << processSize[allocation[i]];
+      else // if not allocated
+        cout << "Not allocated \t N/A";
+    }
+  return 0;
+}
